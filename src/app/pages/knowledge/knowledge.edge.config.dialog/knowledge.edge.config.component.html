@@ -1,0 +1,26 @@
+<form nz-form [formGroup]="knowledgeEdgeConfigForm">
+  <nz-form-item>
+    <nz-form-label [nzSpan]="5" nzRequired nzFor="type">关联关系</nz-form-label>
+    <nz-form-control [nzSpan]="12" nzErrorTip="请选择关联关系！">
+      <nz-radio-group id="type" formControlName="type">
+        <label nz-radio nzValue="pre">前置</label>
+        <label nz-radio nzValue="export">导出</label>
+      </nz-radio-group>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="5" nzRequired nzFor="relationKnowledge">关联知识点</nz-form-label>
+    <nz-form-control [nzSpan]="12" nzErrorTip="请选择关联知识点！">
+      <nz-select
+        id="relationKnowledge"
+        nzPlaceHolder="请选择关联知识点"
+        formControlName="relationKnowledge">
+        <nz-option *ngFor="let item of knowledgeList" [nzLabel]="item.name" [nzValue]="item.id"></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+</form>
+<div *nzModalFooter>
+  <button nz-button nzType="default" (click)="closeDialog()">Cancel</button>
+  <button nz-button nzType="primary" (click)="submitKnowledgeEdgeConfigForm()">Confirm</button>
+</div>

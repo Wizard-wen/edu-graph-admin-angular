@@ -1,0 +1,18 @@
+<form nz-form [formGroup]="domainForm">
+  <nz-form-item>
+    <nz-form-label [nzSpan]="5" nzRequired nzFor="name">领域名称</nz-form-label>
+    <nz-form-control [nzSpan]="12" nzErrorTip="请输入领域名称！">
+      <input nz-input id="name" formControlName="name" placeholder="请输入领域名称！"/>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="5" nzRequired nzFor="description">领域描述</nz-form-label>
+    <nz-form-control [nzSpan]="12" nzErrorTip="请输入领域描述！">
+      <input nz-input id="description" formControlName="description" placeholder="请输入领域描述！"/>
+    </nz-form-control>
+  </nz-form-item>
+</form>
+<div *nzModalFooter>
+  <button nz-button nzType="default" (click)="closeDialog()">Cancel</button>
+  <button nz-button nzType="primary" (click)="submitDomainForm()">Confirm</button>
+</div>

@@ -1,0 +1,41 @@
+<nz-spin [nzSpinning]="isLoading">
+  <div class="table-operations">
+    <button nz-button nzType="primary" (click)="createKnowledgeBaseType()">创建知识点类型</button>
+  </div>
+  <nz-table
+    #Table
+    [nzFrontPagination]="false"
+    [nzTotal]="total"
+    [nzData]="KnowledgeBaseTypeList"
+    [nzPageIndex]="pageIndex"
+    [nzPageSize]="pageSize"
+    (nzPageIndexChange)="handlePageIndexChange($event)">
+    <thead>
+    <tr>
+      <th>Id</th>
+      <th>名称</th>
+      <th>Key值</th>
+      <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let data of Table.data">
+      <td>{{ data.id }}</td>
+      <td>{{ data.name }}</td>
+      <td>{{ data.key }}</td>
+      <td>
+        <nz-space>
+          <nz-space-item>
+            <button nz-button nzType="primary" nzDanger (click)="removeKnowledgeBaseType(data)">删除</button>
+          </nz-space-item>
+          <nz-space-item>
+            <button nz-button nzType="primary" (click)="updateKnowledgeBaseType(data)">编辑</button>
+          </nz-space-item>
+        </nz-space>
+      </td>
+    </tr>
+    </tbody>
+  </nz-table>
+</nz-spin>
+
+

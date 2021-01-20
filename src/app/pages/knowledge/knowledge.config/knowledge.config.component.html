@@ -1,0 +1,97 @@
+<div class="site-page-header-ghost-wrapper">
+  <nz-page-header nzBackIcon [nzGhost]="false">
+    <nz-page-header-title>Title</nz-page-header-title>
+    <nz-page-header-subtitle>This is a subtitle</nz-page-header-subtitle>
+    <nz-page-header-extra>
+      <button nz-button>Operation</button>
+      <button nz-button>Operation</button>
+      <button nz-button nzType="primary">Primary</button>
+    </nz-page-header-extra>
+    <nz-page-header-content>
+      <nz-descriptions nzSize="small" [nzColumn]="3">
+        <nz-descriptions-item nzTitle="Created" [nzSpan]="1">Lili Qu</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Association" [nzSpan]="1"><a>421421</a></nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Creation Time" [nzSpan]="1">2017-01-10</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Effective Time" [nzSpan]="1">2017-10-10</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Remarks" [nzSpan]="2">
+          Gonghu Road, Xihu District, Hangzhou, Zhejiang, China
+        </nz-descriptions-item>
+      </nz-descriptions>
+    </nz-page-header-content>
+  </nz-page-header>
+</div>
+<nz-card nzTitle="基本信息">
+  <form nz-form [formGroup]="knowledgeForm">
+    <nz-form-item>
+      <nz-form-label [nzSpan]="5" nzRequired nzFor="name">知识点名称</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzErrorTip="请输入知识点名称！">
+        <input nz-input id="name" formControlName="name" placeholder="请输入知识点名称！"/>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="5" nzRequired nzFor="knowledgeBaseTypeId">知识点类别</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzErrorTip="请输入知识点类别！">
+        <nz-select
+          id="knowledgeBaseTypeId"
+          nzPlaceHolder="请选择知识点类别"
+          formControlName="knowledgeBaseTypeId">
+          <nz-option *ngFor="let item of knowledgeBaseTypeList" [nzLabel]="item.name" [nzValue]="item.id"></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</nz-card>
+<nz-card nzTitle="知识关联">
+  <div class="table-operations">
+    <button nz-button nzType="primary" (click)="createKnowledgeEdge()">创建关联</button>
+  </div>
+  <div nz-row>
+    <div nz-col nzSpan="12">
+      <nz-table
+        style="max-width: 600px;"
+        #Table
+        nzSize="small"
+        [nzBordered]="true"
+        [nzFrontPagination]="false"
+        [nzTotal]="total"
+        [nzData]="edgeList"
+        [nzPageIndex]="pageIndex"
+        [nzPageSize]="pageSize"
+        (nzPageIndexChange)="handlePageIndexChange($event)">
+        <thead>
+        <tr>
+          <th>起始点</th>
+          <th>终点</th>
+          <th [nzWidth]="'80px'" [nzAlign]="'center'">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let data of Table.data">
+          <td>
+            {{ data.fromName }}
+          </td>
+          <td>
+            {{ data.toName }}
+          </td>
+          <td nzAlign="center">
+            <nz-space>
+              <nz-space-item>
+                <a nz-button nzType="link">编辑</a>
+              </nz-space-item>
+            </nz-space>
+          </td>
+        </tr>
+        </tbody>
+      </nz-table>
+    </div>
+    <div nz-col nzSpan="12">
+      <div id="mountNode" class="graph-box"></div>
+    </div>
+  </div>
+</nz-card>
+<div style="margin-top: 50px;">{{content}}</div>
+<editor [init]="getConfig()" [(ngModel)]="content"></editor>
+<div>
+  <button nz-button nzType="default">返回</button>
+  <button nz-button nzType="primary" (click)="submitDomainForm()">确认</button>
+</div>
